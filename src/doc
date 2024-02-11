@@ -1,0 +1,59 @@
+
+
+The following is a list of statements available in the Karel language...
+
+
+primitive instructions:
+	move Karel moves one block forward
+	turnleft pivots 90 degrees left
+	pickbeeper puts beeper in beeper-bag
+	putbeeper puts beeper on corner
+	turnoff turns off
+
+block structure words:
+	BEGIN
+	;
+	;
+	;
+	...
+	END;
+
+	IF
+	THEN
+	[ ELSE ]
+
+	ITERATE TIMES
+
+
+	WHILE DO
+
+
+	DEFINE-NEW-INSTRUCTION AS
+
+
+	BEGINNING-OF-PROGRAM
+
+	BEGINNING-OF-EXECUTION
+	;
+	;
+	;
+	...
+	END-OF-EXECUTION
+	END-OF-PROGRAM
+
+tests:
+	front-is-clear, front-is-blocked,
+	left-is-clear, left-is-blocked,
+	right-is-clear, right-is-blocked,
+	next-to-a-beeper, not-next-to-a-beeper,
+	facing-north, not-facing-north,
+	facing-south, not-facing-south,
+	facing-east, not-facing-east,
+	facing-west, not-facing-west,
+	any-beepers-in-beeper-bag,
+	no-beepers-in-beeper-bag
+
+comments:
+	This version of karel uses Pascal-style "{" and "}" comment
+	delimiters; this is the only addition to the language described
+	in "Karel the Robot"
