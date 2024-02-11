@@ -10,12 +10,12 @@ Symbol *sp;
 %}
 
 %start prog
-	/* Karel keywords */
+/* Karel keywords */
 
 %token AS BEGEXEC BEGIN BEGPROG DEFINST DO ELSE END ENDEXEC
 %token ENDPROG IF ITERATE THEN TIMES WHILE
 
-	/* interpreter types */
+/* interpreter types */
 
 %token KEY BLTIN TEST NUMBER NAME
 
@@ -24,17 +24,17 @@ Symbol *sp;
 
 
 prog : BEGPROG deflist begexec stmtlist ENDEXEC ENDPROG {
-	startaddr = $3;
-	code(RETURN);
+		startaddr = $3;
+		code(RETURN);
 	}
 	| prog error
 	{ yyerrok; }
 	;
 
 begexec : BEGEXEC {
-	strcpy(instname, "");
-	fprintf(stderr, "main block:\n");
-	$$ = progp;
+		strcpy(instname, "");
+		fprintf(stderr, "main block:\n");
+		$$ = progp;
 	}
 	;
 
@@ -48,9 +48,9 @@ def : /* nothing */
 	;
 
 definst : DEFINST NAME {
-	strcpy(instname, yytext);
-	fprintf(stderr, "%s:\n", instname);
-	install(instname);
+		strcpy(instname, yytext);
+		fprintf(stderr, "%s:\n", instname);
+		install(instname);
 	}
 	| DEFINST BLTIN
 	{ err("tried to redefine primitive instruction:",
@@ -65,50 +65,50 @@ stmtlist : stmt
 
 stmt : BEGIN stmtlist END
 	| IF logictest THEN stmt {
-	setcode($2 + 1, condbranch);
-	setcodeint($2 + 2, progp);
+		setcode($2 + 1, condbranch);
+		setcodeint($2 + 2, progp);
 	}
 	| IF logictest THEN stmt else stmt {
-	setcode($2 + 1, condbranch);
-	setcodeint($2 + 2, $5 + 1);
-	setcodeint($5, progp);
+		setcode($2 + 1, condbranch);
+		setcodeint($2 + 2, $5 + 1);
+		setcodeint($5, progp);
 	}
 	| iterate TIMES stmt {
-	code(RETURN);
-	setcodeint($1, progp);
+		code(RETURN);
+		setcodeint($1, progp);
 	}
 	| WHILE logictest DO stmt {
-	 setcode($2 + 1, condbranch);
-	setcodeint($2 + 2, progp + 2);
-	code(branch);
-	codeint($2);
+		setcode($2 + 1, condbranch);
+		setcodeint($2 + 2, progp + 2);
+		code(branch);
+		codeint($2);
 	}
 	| NAME {
-	 if ((sp = lookup(yytext)) == (Symbol *) 0)
-	err(yytext, "undefined");
-	else {
-	 if (strcmp(yytext, instname) == 0)
-	err("recursive procedure call:",
-	yytext);
-	else {
-	 code(call);
-	codeint(sp->addr);
-	}
-	}
+		if ((sp = lookup(yytext)) == (Symbol *) 0)
+			err(yytext, "undefined");
+		else {
+			if (strcmp(yytext, instname) == 0)
+				err("recursive procedure call:",
+				yytext);
+			else {
+				code(call);
+				codeint(sp->addr);
+			}
+		}
 	}
 	| BLTIN {
-	 if (strcmp(yytext, "turnoff") == 0)
-	gotturnoff = 1;
-	code(bltins[tokenid].func);
+		if (strcmp(yytext, "turnoff") == 0)
+			gotturnoff = 1;
+		code(bltins[tokenid].func);
 	}
 	| error
 	;
 
 logictest : TEST {
-	 $$ = progp;
-	code(bltins[tokenid].func);
-	codeint(0); /* leave room for branch */
-	codeint(0); /* instruction and address */
+		$$ = progp;
+		code(bltins[tokenid].func);
+		codeint(0); /* leave room for branch */
+		codeint(0); /* instruction and address */
 	}
 	| NAME
 	{ err("invalid logical test:", yytext); }
@@ -117,15 +117,15 @@ logictest : TEST {
 	;
 
 else : ELSE {
-	 code(branch);
-	$$ = progp;
-	codeint(0);
+		code(branch);
+		$$ = progp;
+		codeint(0);
 	};
 
 iterate : ITERATE NUMBER {
-	 code(loopexec);
-	codeint(atoi(yytext));
-	$$ = progp;
-	codeint(0);
+		code(loopexec);
+		codeint(atoi(yytext));
+		$$ = progp;
+		codeint(0);
 	}
 	;
