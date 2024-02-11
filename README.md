@@ -1,4 +1,4 @@
-This project contains a Karel interpreter I wrote in high school and posted on the Usenet group net.sources on 1985-06-11 with the following note:
+This project contains a [Karel](<https://en.wikipedia.org/wiki/Karel_(programming_language)>) interpreter I wrote in high school and posted on the Usenet group net.sources on 1985-06-11 with the following note:
 
 ```
 Last year, I wrote an interpreter for the Karel language to help introduce
@@ -18,3 +18,5 @@ P.O. Box 788
 Wallingford, CT 06492
 ...{decvax}!yale!spock!jtm
 ```
+
+This Karel interpreter was used at several schools, and formed the basis for at least [one other Karel implementation](https://karel.sourceforge.net/doc/html_chapter/karel_1.html).
