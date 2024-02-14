@@ -20,3 +20,5 @@ Wallingford, CT 06492
 ```
 
 This Karel interpreter was used at several schools, and formed the basis for at least [one other Karel implementation](https://karel.sourceforge.net/doc/html_chapter/karel_1.html).
+
+This code was recovered from the [USENET Archives](https://www.usenetarchives.com). Some `#include` statements for system libraries seem to have been dropped from the archived post.
